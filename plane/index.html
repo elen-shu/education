@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <title>Самолёт</title>
+    <style>
+      body{
+        height:100vh;
+        background: url(/img/bg-city.jpg) 100% 100%;
+        overflow:hidden;
+      }
+      #plane{
+        width:120px;
+        top:100px;
+        transform: scale(1,1);
+        transform: rotate(0deg);
+        position:absolute;
+      }
+    </style>
+  </head>
+  <body>
+    <img src="/img/AAL.png" alt="Самолёт" id="plane">
+    
+    <script>
+      let plane=document.getElementById("plane");
+      let flag = true;
+      let x=0;
+      let y=100;
+      function movePlane(){
+        if(window.innerWidth-120 == x) {
+          flag = false;
+          plane.style.transform = "scale(-1,1)"; //самолёт долетел до правого края экрана и развернулся
+        }
+        else if(x == 0) {
+          flag = true;
+          plane.style.transform = "scale(1,1)"; //самолёт долетел до левого края экрана и развернулся
+        }
+        if (flag == true) plane.style.left = ++x + 'px'; //самолёт двигается слева направо
+        else if(flag == false) plane.style.left = --x + 'px'; //самолёт двигается справо налево
+        
+        if (150<x && x<450 && flag == true) { //если здесь начать комментарии (т.е. /*), то самолёт поворачивается 
+          plane.style.top = ++y + "px";
+          plane.style.transform = "scale(1,1) rotate(45deg)"; //самолёт снижается
+        }else{
+          plane.style.transform = "scale(1,1) rotate(0deg)"; //самолёт выровняли вдоль земли
+        }
+        if(950<x && x<1150 && flag == true){
+          plane.style.top = --y + "px";
+          plane.style.transform = "scale(1,1) rotate(-30deg)"; //самолёт подняли в небо
+        }else if(y == window.innerHeight-100) plane.style.transform = "scale(1,1) rotate(0deg)"; //самолёт вновь летит на высоте
+      }
+      setInterval(movePlane,5);
+    </script>
+  </body>
+</html>
