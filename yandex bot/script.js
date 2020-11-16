@@ -44,7 +44,7 @@ if (search_button != undefined){ //Проверяем, находимся ли �
     },500)
 }else if(location.hostname == "yandex.ru"){ //Страница поисковой выдачи
     let flag = true;
-    let numPage = document.getElementsByClassName("pager__item pager__item_current_yes pager__item_kind_page")[0].innerText;
+    let numPage = document.getElementsByClassName("pager__item pager__item_current_yes pager__item_kind_page")[0].textContent;
     site = getCookie("site"); //Достать содержимое куки
     for(let i=0; i<links.length; i++){
         let link = links[i];
