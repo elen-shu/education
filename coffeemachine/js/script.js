@@ -43,7 +43,7 @@
           balance.innerText = money.value;
           progressBar.hidden = false
           info.innerText = "Напиток готовится.<br> Ожидайте..."
-          block.style.height = "100vh";
+          blocked_window.style.height = "100vh";
           let timerId = setInterval(()=>{
             progressCount++;
             progressBar.style.width = progressCount+"%";
@@ -58,15 +58,17 @@
             }
             
             if (progressCount == 100){
-              info.innerHTML = `Кофе `+coffeeName+` готов<br><i class="fas fa-mug-hot"></i>`;
+              info.innerHTML = `Кофе `+coffeeName+` готов<br> <i class="fas fa-mug-hot"></i>`;
               progressBar.hidden = true;
               progressBar.style.width = 0+"%";
               progressCount=0;
+              blocked_window.style.height = "0vh";
+              coffee_cup.style.opacity=1;
               clearInterval(timerId);
             }
           }, 100);
         }else{
-          info.innerHTML = `Недостаточно средств.<br>Добавьте купюры  <i class="far fa-money-bill-alt"></i>`;
+          info.innerHTML = `Недостаточно средств.<br> Добавьте купюры  <i class="far fa-money-bill-alt"></i>`;
         }
       }
       
@@ -74,16 +76,29 @@
         let coin;
         let left = getRandom(0, change_box.getBoundingClientRect().width-60);
         let top = getRandom(0, change_box.getBoundingClientRect().height-60);
-        if(num>=10) coin=10; // Проверяем, что число num > 10?, если так, то присваиваем переменной coin число 10
-        else if(num>=5) coin=5;
-        else if(num>=2) coin=2;
-        else if(num>=1) coin=1;
+        if(num>=10){
+          num-=10
+          change_box.innerHTML += `<img style="left:${left}px; top:${top}px;" src="/img/10rub.png" onclick="this.hidden=true"></img>`;
+        }
+        else if(num>=5){
+          num-=5
+          change_box.innerHTML += `<img style="left:${left}px; top:${top}px;" src="/img/5rub.png" onclick="this.hidden=true"></img>`;
+        }
+        else if(num>=2){
+          num-=2
+          change_box.innerHTML += `<img style="left:${left}px; top:${top}px;" src="/img/2rub.png" onclick="this.hidden=true"></img>`;
+        }
+        else if(num>=1){
+          num-=1
+          change_box.innerHTML += `<img style="left:${left}px; top:${top}px;" src="/img/1rub.png" onclick="this.hidden=true"></img>`;
+        }
         
         if(coin>0){
           change_box.innerHTML += `<img style="left:${left}px; top:${top}px;" src="/img/${coin}rub.png" onclick="this.hidden=true"></img>`;
           getChange(num-coin);
         }else{
           money.value = 0;
+          info.innerText = "Заберите сдачу";
           balance.innerText = money.value;
           let audio = new Audio("http://elenshf2.beget.tech/audio/coin_sounds.mp3");
           audio.play();
