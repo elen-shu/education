@@ -26,7 +26,7 @@
         color: gold;
         border: 1px solid #F5DEB3;
         border-radius: 30px 0 0 30px;
-        font-family: 'Caveat', cursive;
+        font-family: 'Caveat';
       }
       #display{
         width: 90%;
@@ -34,7 +34,7 @@
         background: navy;
         color: white;
         border: 3px solid black;
-        font-family: 'Press Start 2P', cursive;
+        font-family: 'Press Start 2P';
         font-size: 0.7em;
       }
       #change_box{
@@ -54,9 +54,19 @@
         cursor:pointer;
         filter: contrast(150%);
       }
-      #block{
+      #blocked_window{
         width: 100%;
         top: 0;
         position: absolute;
         z-index: 100;
+        background-color:white;
+      }
+      .coffee_cup {
+        width: 50%;
+        opacity: 0;
+        transition:all 2s;
+        cursor:pointer;
+      }
+      .coffee_cup:hover {
+        filter: contrast(150%);
       }
